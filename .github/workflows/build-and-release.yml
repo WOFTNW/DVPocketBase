@@ -1,0 +1,65 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23.4" # Update to match your actual Go version
+
+      - name: Build
+        run: go build -v -o dvpocketbase ./main.go
+
+      - name: Test
+        run: go test -v ./...
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dvpocketbase
+          path: dvpocketbase
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dvpocketbase
+
+      - name: Make binary executable
+        run: chmod +x dvpocketbase
+
+      - name: Extract version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            dvpocketbase
+          body: |
+            Release ${{ steps.get_version.outputs.VERSION }} of DVPocketBase
