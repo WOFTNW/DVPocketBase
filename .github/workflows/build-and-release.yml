@@ -9,7 +9,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -20,17 +23,30 @@ jobs:
         with:
           go-version: "1.23.4" # Update to match your actual Go version
 
-      - name: Build
-        run: go build -v -o dvpocketbase ./main.go
+      - name: Build for Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: go build -v -o dvpocketbase-linux ./main.go
+
+      - name: Build for Windows
+        if: matrix.os == 'windows-latest'
+        run: go build -v -o dvpocketbase-windows.exe ./main.go
 
       - name: Test
         run: go test -v ./...
 
-      - name: Upload build artifact
+      - name: Upload Linux Artifact
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: dvpocketbase
-          path: dvpocketbase
+          name: dvpocketbase-linux
+          path: dvpocketbase-linux
+
+      - name: Upload Windows Artifact
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dvpocketbase-windows
+          path: dvpocketbase-windows.exe
 
   release:
     needs: build
@@ -41,14 +57,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download build artifact
+      - name: Download Linux Artifact
         uses: actions/download-artifact@v4
         with:
-          name: dvpocketbase
+          name: dvpocketbase-linux
           path: .
 
-      - name: Make binary executable
-        run: chmod +x dvpocketbase
+      - name: Download Windows Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dvpocketbase-windows
+          path: .
+
+      - name: Make Linux binary executable
+        run: chmod +x dvpocketbase-linux
 
       - name: Extract version
         id: get_version
@@ -61,6 +83,11 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            dvpocketbase
+            dvpocketbase-linux
+            dvpocketbase-windows.exe
           body: |
             Release ${{ steps.get_version.outputs.VERSION }} of DVPocketBase
+
+            ## Downloads
+            - [Linux Binary](dvpocketbase-linux)
+            - [Windows Binary](dvpocketbase-windows.exe)
