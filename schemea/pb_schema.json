@@ -777,15 +777,6 @@
         "type": "text"
       },
       {
-        "hidden": false,
-        "id": "bool1755323105",
-        "name": "can_update_server_player_limit",
-        "presentable": false,
-        "required": false,
-        "system": false,
-        "type": "bool"
-      },
-      {
         "cascadeDelete": true,
         "collectionId": "pbc_3841632486",
         "hidden": false,
@@ -797,6 +788,33 @@
         "required": false,
         "system": false,
         "type": "relation"
+      },
+      {
+        "hidden": false,
+        "id": "bool1755323105",
+        "name": "can_update_server_player_limit",
+        "presentable": false,
+        "required": false,
+        "system": false,
+        "type": "bool"
+      },
+      {
+        "hidden": false,
+        "id": "bool209357528",
+        "name": "can_see_console_logs",
+        "presentable": false,
+        "required": false,
+        "system": false,
+        "type": "bool"
+      },
+      {
+        "hidden": false,
+        "id": "bool2684195672",
+        "name": "can_send_commands",
+        "presentable": false,
+        "required": false,
+        "system": false,
+        "type": "bool"
       },
       {
         "hidden": false,
@@ -1208,6 +1226,146 @@
         "required": false,
         "system": false,
         "type": "number"
+      },
+      {
+        "hidden": false,
+        "id": "autodate2990389176",
+        "name": "created",
+        "onCreate": true,
+        "onUpdate": false,
+        "presentable": false,
+        "system": false,
+        "type": "autodate"
+      },
+      {
+        "hidden": false,
+        "id": "autodate3332085495",
+        "name": "updated",
+        "onCreate": true,
+        "onUpdate": true,
+        "presentable": false,
+        "system": false,
+        "type": "autodate"
+      }
+    ],
+    "indexes": [],
+    "system": false
+  },
+  {
+    "id": "pbc_920092418",
+    "listRule": "@request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_console_logs = true",
+    "viewRule": "@request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_console_logs = true",
+    "createRule": "@request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_send_commands = true",
+    "updateRule": null,
+    "deleteRule": null,
+    "name": "server_commands",
+    "type": "base",
+    "fields": [
+      {
+        "autogeneratePattern": "[a-z0-9]{15}",
+        "hidden": false,
+        "id": "text3208210256",
+        "max": 15,
+        "min": 15,
+        "name": "id",
+        "pattern": "^[a-z0-9]+$",
+        "presentable": false,
+        "primaryKey": true,
+        "required": true,
+        "system": true,
+        "type": "text"
+      },
+      {
+        "autogeneratePattern": "",
+        "hidden": false,
+        "id": "text2395663060",
+        "max": 0,
+        "min": 0,
+        "name": "command",
+        "pattern": "",
+        "presentable": false,
+        "primaryKey": false,
+        "required": true,
+        "system": false,
+        "type": "text"
+      },
+      {
+        "hidden": false,
+        "id": "select2063623452",
+        "maxSelect": 1,
+        "name": "status",
+        "presentable": false,
+        "required": false,
+        "system": false,
+        "type": "select",
+        "values": [
+          "sent",
+          "received",
+          "executed",
+          "failed"
+        ]
+      },
+      {
+        "hidden": false,
+        "id": "autodate2990389176",
+        "name": "created",
+        "onCreate": true,
+        "onUpdate": false,
+        "presentable": false,
+        "system": false,
+        "type": "autodate"
+      },
+      {
+        "hidden": false,
+        "id": "autodate3332085495",
+        "name": "updated",
+        "onCreate": true,
+        "onUpdate": true,
+        "presentable": false,
+        "system": false,
+        "type": "autodate"
+      }
+    ],
+    "indexes": [],
+    "system": false
+  },
+  {
+    "id": "pbc_2348717256",
+    "listRule": "@request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_console_logs = true",
+    "viewRule": "@request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_console_logs = true",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "name": "server_logs",
+    "type": "base",
+    "fields": [
+      {
+        "autogeneratePattern": "[a-z0-9]{15}",
+        "hidden": false,
+        "id": "text3208210256",
+        "max": 15,
+        "min": 15,
+        "name": "id",
+        "pattern": "^[a-z0-9]+$",
+        "presentable": false,
+        "primaryKey": true,
+        "required": true,
+        "system": true,
+        "type": "text"
+      },
+      {
+        "autogeneratePattern": "",
+        "hidden": false,
+        "id": "text124745332",
+        "max": 0,
+        "min": 0,
+        "name": "log_msg",
+        "pattern": "",
+        "presentable": false,
+        "primaryKey": false,
+        "required": false,
+        "system": false,
+        "type": "text"
       },
       {
         "hidden": false,
