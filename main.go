@@ -10,14 +10,10 @@ import (
 func main() {
 	app := pocketbase.New()
 
-	if err := app.Start(); err != nil {
-		log.Fatal(err)
-	}
-
 	app.OnRecordAfterCreateSuccess("infractions").BindFunc(func(e *core.RecordEvent) error {
 		record, err := app.FindRecordById("users", e.Record.Get("user").(string))
 		if err != nil {
-			log.Default().Println("Error: Record for User Not Found ", record.Id)
+			app.Logger().Error("Error: Record for User Not Found ", "recordId", record.Id)
 			return err
 		}
 		var s = record.Get("infractions").([]string)
@@ -25,9 +21,12 @@ func main() {
 		record.Set("infractions", s)
 		err = app.Save(record)
 		if err != nil {
-			log.Default().Println("Error Saving Record for User ", record.Id)
+			app.Logger().Error("Error Saving Record for User", "recordId", record.Id)
 			return err
 		}
 		return e.Next()
 	})
+	if err := app.Start(); err != nil {
+		log.Fatal(err)
+	}
 }
