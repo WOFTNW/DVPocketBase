@@ -836,6 +836,33 @@
           },
           {
               "hidden": false,
+              "id": "bool3805637333",
+              "name": "can_see_users",
+              "presentable": false,
+              "required": false,
+              "system": false,
+              "type": "bool"
+          },
+          {
+              "hidden": false,
+              "id": "bool304969179",
+              "name": "can_create_infractions",
+              "presentable": false,
+              "required": false,
+              "system": false,
+              "type": "bool"
+          },
+          {
+              "hidden": false,
+              "id": "bool1443261274",
+              "name": "can_see_users_inventory",
+              "presentable": false,
+              "required": false,
+              "system": false,
+              "type": "bool"
+          },
+          {
+              "hidden": false,
               "id": "autodate2990389176",
               "name": "created",
               "onCreate": true,
@@ -1401,10 +1428,10 @@
   },
   {
       "id": "pbc_652824244",
-      "listRule": "",
-      "viewRule": "",
-      "createRule": "",
-      "updateRule": "",
+      "listRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_create_infractions = true",
+      "viewRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_create_infractions = true",
+      "createRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_create_infractions = true",
+      "updateRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_create_infractions = true",
       "deleteRule": "",
       "name": "infractions",
       "type": "base",
@@ -1439,6 +1466,15 @@
           },
           {
               "hidden": false,
+              "id": "bool2517100968",
+              "name": "send_warning",
+              "presentable": false,
+              "required": false,
+              "system": false,
+              "type": "bool"
+          },
+          {
+              "hidden": false,
               "id": "bool424668491",
               "name": "expired",
               "presentable": false,
@@ -1447,14 +1483,14 @@
               "type": "bool"
           },
           {
-              "hidden": false,
+              "hidden": true,
               "id": "number984493801",
               "max": null,
               "min": 0,
               "name": "warn_channel_id",
               "onlyInt": false,
               "presentable": false,
-              "required": true,
+              "required": false,
               "system": false,
               "type": "number"
           },
@@ -1509,11 +1545,11 @@
   },
   {
       "id": "pbc_710432678",
-      "listRule": "",
-      "viewRule": "",
-      "createRule": "",
-      "updateRule": "",
-      "deleteRule": "",
+      "listRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users_inventory = true",
+      "viewRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users_inventory = true",
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
       "name": "items",
       "type": "base",
       "fields": [
@@ -1534,6 +1570,20 @@
           {
               "autogeneratePattern": "",
               "hidden": false,
+              "id": "text1843675174",
+              "max": 0,
+              "min": 0,
+              "name": "description",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
               "id": "text1579384326",
               "max": 35,
               "min": 1,
@@ -1544,17 +1594,6 @@
               "required": true,
               "system": false,
               "type": "text"
-          },
-          {
-              "convertURLs": false,
-              "hidden": false,
-              "id": "editor1843675174",
-              "maxSize": 0,
-              "name": "description",
-              "presentable": false,
-              "required": false,
-              "system": false,
-              "type": "editor"
           },
           {
               "hidden": false,
@@ -2136,8 +2175,8 @@
   },
   {
       "id": "pbc_2519118405",
-      "listRule": "",
-      "viewRule": "",
+      "listRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users_inventory = true",
+      "viewRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users_inventory = true",
       "createRule": "",
       "updateRule": "",
       "deleteRule": "",
@@ -2222,8 +2261,8 @@
   },
   {
       "id": "pbc_3754236674",
-      "listRule": "",
-      "viewRule": "",
+      "listRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users = true",
+      "viewRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users = true",
       "createRule": "",
       "updateRule": "",
       "deleteRule": "",
@@ -2257,6 +2296,20 @@
               "required": true,
               "system": false,
               "type": "text"
+          },
+          {
+              "hidden": false,
+              "id": "file2977524901",
+              "maxSelect": 1,
+              "maxSize": 0,
+              "mimeTypes": [],
+              "name": "discord_img",
+              "presentable": false,
+              "protected": false,
+              "required": false,
+              "system": false,
+              "thumbs": [],
+              "type": "file"
           },
           {
               "autogeneratePattern": "",
