@@ -1615,7 +1615,7 @@
               "name": "sale_percent",
               "onlyInt": false,
               "presentable": false,
-              "required": true,
+              "required": false,
               "system": false,
               "type": "number"
           },
@@ -1623,7 +1623,7 @@
               "hidden": false,
               "id": "number2683508278",
               "max": null,
-              "min": 0,
+              "min": -1,
               "name": "quantity",
               "onlyInt": true,
               "presentable": false,
@@ -2260,6 +2260,66 @@
       "system": false
   },
   {
+    "id": "pbc_9988776655",
+    "name": "claims",
+    "type": "base",
+    "createRule": "",
+    "updateRule": "",
+    "deleteRule": "",
+    "listRule": "@request.auth.id != \"\"",
+    "viewRule": "@request.auth.id != \"\"",
+    "fields": [
+    {
+        "autogeneratePattern": "[a-z0-9]{15}",
+        "hidden": false,
+        "id": "text3208210256",
+        "max": 15,
+        "min": 15,
+        "name": "id",
+        "pattern": "^[a-z0-9]+$",
+        "presentable": false,
+        "primaryKey": true,
+        "required": true,
+        "system": true,
+        "type": "text"
+    },
+      {
+        "id": "relation7320457101",
+        "name": "location",
+        "type": "relation",
+        "collectionId": "pbc_517001682",
+        "minSelect": 1,
+        "maxSelect": 1,
+        "required": true,
+        "system": false,
+        "hidden": false,
+        "cascadeDelete": true
+      },
+      {
+        "id": "number7192858192",
+        "name": "size",
+        "type": "number",
+        "required": true,
+        "system": false,
+        "hidden": false
+      },
+      {
+        "id": "relation8172564029",
+        "name": "user",
+        "type": "relation",
+        "collectionId": "pbc_3754236674",
+        "minSelect": 1,
+        "maxSelect": 1,
+        "required": true,
+        "system": false,
+        "hidden": false,
+        "cascadeDelete": true
+      }
+    ],
+    "indexes": [],
+    "system": false
+  },
+  {
       "id": "pbc_3754236674",
       "listRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users = true",
       "viewRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users = true",
@@ -2366,7 +2426,7 @@
           },
           {
               "cascadeDelete": false,
-              "collectionId": "pbc_517001682",
+              "collectionId": "pbc_9988776655",
               "hidden": false,
               "id": "relation3198358462",
               "maxSelect": 999,
