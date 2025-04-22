@@ -886,6 +886,72 @@
       "system": false
   },
   {
+      "id": "pbc_9988776655",
+      "listRule": "@request.auth.id != \"\"",
+      "viewRule": "@request.auth.id != \"\"",
+      "createRule": "",
+      "updateRule": "",
+      "deleteRule": "",
+      "name": "claims",
+      "type": "base",
+      "fields": [
+          {
+              "autogeneratePattern": "[a-z0-9]{15}",
+              "hidden": false,
+              "id": "text3208210256",
+              "max": 15,
+              "min": 15,
+              "name": "id",
+              "pattern": "^[a-z0-9]+$",
+              "presentable": false,
+              "primaryKey": true,
+              "required": true,
+              "system": true,
+              "type": "text"
+          },
+          {
+              "cascadeDelete": true,
+              "collectionId": "pbc_517001682",
+              "hidden": false,
+              "id": "relation7320457101",
+              "maxSelect": 1,
+              "minSelect": 1,
+              "name": "location",
+              "presentable": false,
+              "required": true,
+              "system": false,
+              "type": "relation"
+          },
+          {
+              "hidden": false,
+              "id": "number7192858192",
+              "max": null,
+              "min": null,
+              "name": "size",
+              "onlyInt": false,
+              "presentable": false,
+              "required": true,
+              "system": false,
+              "type": "number"
+          },
+          {
+              "cascadeDelete": true,
+              "collectionId": "pbc_3754236674",
+              "hidden": false,
+              "id": "relation8172564029",
+              "maxSelect": 1,
+              "minSelect": 1,
+              "name": "user",
+              "presentable": false,
+              "required": true,
+              "system": false,
+              "type": "relation"
+          }
+      ],
+      "indexes": [],
+      "system": false
+  },
+  {
       "id": "pbc_1601422773",
       "listRule": "",
       "viewRule": "",
@@ -1060,42 +1126,6 @@
           },
           {
               "hidden": false,
-              "id": "number380355575",
-              "max": null,
-              "min": null,
-              "name": "whitelist_channel",
-              "onlyInt": false,
-              "presentable": false,
-              "required": false,
-              "system": false,
-              "type": "number"
-          },
-          {
-              "hidden": false,
-              "id": "number2586176",
-              "max": null,
-              "min": null,
-              "name": "game_chat_channel",
-              "onlyInt": false,
-              "presentable": false,
-              "required": false,
-              "system": false,
-              "type": "number"
-          },
-          {
-              "hidden": false,
-              "id": "number1147270354",
-              "max": null,
-              "min": null,
-              "name": "game_log_channel",
-              "onlyInt": false,
-              "presentable": false,
-              "required": false,
-              "system": false,
-              "type": "number"
-          },
-          {
-              "hidden": false,
               "id": "bool248444705",
               "name": "log_console",
               "presentable": false,
@@ -1131,6 +1161,48 @@
               "required": false,
               "system": false,
               "type": "url"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
+              "id": "text2586176",
+              "max": 0,
+              "min": 0,
+              "name": "game_chat_channel",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
+              "id": "text380355575",
+              "max": 0,
+              "min": 0,
+              "name": "whitelist_channel",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
+              "id": "text1147270354",
+              "max": 0,
+              "min": 0,
+              "name": "game_log_channel",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
           },
           {
               "hidden": false,
@@ -1315,6 +1387,20 @@
               "required": false,
               "system": false,
               "type": "number"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
+              "id": "text198616709",
+              "max": 0,
+              "min": 0,
+              "name": "work_cooldown",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
           },
           {
               "hidden": false,
@@ -2260,66 +2346,6 @@
       "system": false
   },
   {
-    "id": "pbc_9988776655",
-    "name": "claims",
-    "type": "base",
-    "createRule": "",
-    "updateRule": "",
-    "deleteRule": "",
-    "listRule": "@request.auth.id != \"\"",
-    "viewRule": "@request.auth.id != \"\"",
-    "fields": [
-    {
-        "autogeneratePattern": "[a-z0-9]{15}",
-        "hidden": false,
-        "id": "text3208210256",
-        "max": 15,
-        "min": 15,
-        "name": "id",
-        "pattern": "^[a-z0-9]+$",
-        "presentable": false,
-        "primaryKey": true,
-        "required": true,
-        "system": true,
-        "type": "text"
-    },
-      {
-        "id": "relation7320457101",
-        "name": "location",
-        "type": "relation",
-        "collectionId": "pbc_517001682",
-        "minSelect": 1,
-        "maxSelect": 1,
-        "required": true,
-        "system": false,
-        "hidden": false,
-        "cascadeDelete": true
-      },
-      {
-        "id": "number7192858192",
-        "name": "size",
-        "type": "number",
-        "required": true,
-        "system": false,
-        "hidden": false
-      },
-      {
-        "id": "relation8172564029",
-        "name": "user",
-        "type": "relation",
-        "collectionId": "pbc_3754236674",
-        "minSelect": 1,
-        "maxSelect": 1,
-        "required": true,
-        "system": false,
-        "hidden": false,
-        "cascadeDelete": true
-      }
-    ],
-    "indexes": [],
-    "system": false
-  },
-  {
       "id": "pbc_3754236674",
       "listRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users = true",
       "viewRule": "  @request.auth.id != \"\" && @request.auth.permissions != null && @request.auth.permissions.can_see_users = true",
@@ -2346,6 +2372,20 @@
           {
               "autogeneratePattern": "",
               "hidden": false,
+              "id": "text77796143",
+              "max": 0,
+              "min": 0,
+              "name": "discord_username",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
               "id": "text70470110",
               "max": 0,
               "min": 0,
@@ -2358,18 +2398,29 @@
               "type": "text"
           },
           {
+              "exceptDomains": null,
               "hidden": false,
-              "id": "file2977524901",
-              "maxSelect": 1,
-              "maxSize": 0,
-              "mimeTypes": [],
+              "id": "url2977524901",
               "name": "discord_img",
+              "onlyDomains": null,
               "presentable": false,
-              "protected": false,
               "required": false,
               "system": false,
-              "thumbs": [],
-              "type": "file"
+              "type": "url"
+          },
+          {
+              "autogeneratePattern": "",
+              "hidden": false,
+              "id": "text3004520463",
+              "max": 0,
+              "min": 0,
+              "name": "mc_uuid",
+              "pattern": "",
+              "presentable": false,
+              "primaryKey": false,
+              "required": false,
+              "system": false,
+              "type": "text"
           },
           {
               "autogeneratePattern": "",
@@ -2464,7 +2515,7 @@
           {
               "hidden": false,
               "id": "number2901680126",
-              "max": 999999999,
+              "max": null,
               "min": 0,
               "name": "balance",
               "onlyInt": false,
@@ -2491,6 +2542,17 @@
               "max": "",
               "min": "",
               "name": "last_work",
+              "presentable": false,
+              "required": false,
+              "system": false,
+              "type": "date"
+          },
+          {
+              "hidden": false,
+              "id": "date3872017902",
+              "max": "",
+              "min": "",
+              "name": "last_played",
               "presentable": false,
               "required": false,
               "system": false,
