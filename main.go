@@ -42,6 +42,22 @@ func main() {
 		}
 		return e.Next()
 	})
+	app.OnRecordAfterCreateSuccess("user_inventory").BindFunc(func(e *core.RecordEvent) error {
+		record, err := app.FindRecordById("users", e.Record.Get("user").(string))
+		if err != nil {
+			app.Logger().Error("Error: Record for User Not Found ", "recordId", record.Id)
+			return err
+		}
+		var s = record.Get("user_inventory").([]string)
+		s = append(s, e.Record.Get("id").(string))
+		record.Set("user_inventory", s)
+		err = app.Save(record)
+		if err != nil {
+			app.Logger().Error("Error Saving Record for User", "recordId", record.Id)
+			return err
+		}
+		return e.Next()
+	})
 	if err := app.Start(); err != nil {
 		log.Fatal(err)
 	}
