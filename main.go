@@ -48,9 +48,9 @@ func main() {
 			app.Logger().Error("Error: Record for User Not Found ", "recordId", record.Id)
 			return err
 		}
-		var s = record.Get("user_inventory").([]string)
+		var s = record.Get("inventory_items").([]string)
 		s = append(s, e.Record.Get("id").(string))
-		record.Set("user_inventory", s)
+		record.Set("inventory_items", s)
 		err = app.Save(record)
 		if err != nil {
 			app.Logger().Error("Error Saving Record for User", "recordId", record.Id)
